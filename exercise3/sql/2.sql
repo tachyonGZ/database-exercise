@@ -1,0 +1,10 @@
+CREATE TRIGGER tri_Insert_S  
+ON S
+INSTEAD OF INSERT
+AS
+	BEGIN
+	IF (SELECT inserted.Sage FROM inserted) BETWEEN 18 AND 25
+		INSERT INTO S SELECT * FROM inserted;
+	ELSE
+		PRINT N'年龄应该在18到25之间';
+	END

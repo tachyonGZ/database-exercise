@@ -1,0 +1,8 @@
+CREATE TRIGGER tri_Delete_C
+ON C
+INSTEAD OF DELETE
+AS
+	IF EXISTS (SELECT * FROM SC WHERE SC.Cno IN (SELECT deleted.Cno FROM deleted))
+		PRINT N'有选课记录，无法删除';
+	ELSE
+		DELETE FROM C WHERE C.Cno IN (SELECT deleted.Cno FROM deleted);

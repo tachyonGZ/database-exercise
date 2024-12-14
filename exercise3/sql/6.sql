@@ -1,0 +1,10 @@
+CREATE TRIGGER tri__Insert_SC  
+ON SC
+INSTEAD OF INSERT 
+AS
+	BEGIN
+	IF (SELECT inserted.Score FROM inserted) BETWEEN 0 AND 100
+		INSERT INTO SC SELECT * FROM inserted
+	ELSE
+		PRINT N'分数不合理'
+	END

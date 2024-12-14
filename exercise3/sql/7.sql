@@ -1,0 +1,5 @@
+CREATE TRIGGER tir_Update_S  
+ON S
+AFTER UPDATE
+AS
+	UPDATE SC SET SC.Sno = (SELECT Sno FROM inserted) WHERE SC.Sno IN (SELECT Sno FROM deleted)
